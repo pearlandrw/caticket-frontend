@@ -113,6 +113,15 @@ getTickets(pageNum?: number) {
 }
   
 searchTickets(filters: any) {
+  console.log("Summary:"+this.searchFilter.summary);
+  console.log("Incident:"+this.searchFilter.incident);
+  console.log("Dealer:"+this.searchFilter.dealer);
+  console.log("CreatedBy:"+this.searchFilter.createdBy);
+  console.log("Priorities:"+this.searchPriorities.value);
+  console.log("Categories:"+this.searchCategories.value);
+  console.log("Statuses:"+this.searchStatuses.value);
+  console.log("Ticket Start Date:"+this.searchTicketStartDate.value);
+  console.log("Ticket End Date:"+this.searchTicketEndDate.value);
   if (filters) {
       this.ticketService.getTickets()
           .subscribe(tickets => {
