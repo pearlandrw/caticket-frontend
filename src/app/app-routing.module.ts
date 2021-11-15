@@ -4,6 +4,7 @@ import { AuthGuard } from './_guard';
 import { NotFoundPageComponent } from './notfoundpage';
 import { LoginComponent } from './login';
 import { LoadingComponent } from './loading';
+import { CreateticketComponent } from './createticket/createticket.component';
 
 
 // const routes: Routes = [];
@@ -27,6 +28,10 @@ const routes: Routes = [
     path: "tickets",
     loadChildren: () =>
     import('./ticket/ticket.module').then(m => m.TicketModule)
+  },
+  {
+    path: "tickets/new",
+    component: CreateticketComponent,
   },
   {
     path: "**",

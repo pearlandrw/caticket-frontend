@@ -13,8 +13,8 @@ import { tick } from '@angular/core/testing';
 @Injectable()
 export class TicketService {
   private basicAction = 'tickets/';
-  getTicketsUrl: string = "https://ac8ec036-e5a1-4111-bad7-44302de84709.mock.pstmn.io/getServiceTickets";
-
+  //getTicketsUrl: string = "https://ac8ec036-e5a1-4111-bad7-44302de84709.mock.pstmn.io/getServiceTickets";
+  getTicketsUrl: string = "http://localhost:8080/serviceDesk/findAll";
   constructor(private http: HttpClient, private backend: BackendService) { }
 
   getTickets(): Observable<any> {

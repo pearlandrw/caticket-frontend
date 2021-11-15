@@ -16,6 +16,7 @@ import { LoadingComponent } from  './loading';
 import { AuthGuard } from './_guard';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CreateticketComponent } from './createticket/createticket.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     NotFoundPageComponent,
     ConfirmDialog,
     LoadingComponent,
-    AppComponent
+    AppComponent,
+    CreateticketComponent,
   ],
   imports: [
     BrowserModule,
