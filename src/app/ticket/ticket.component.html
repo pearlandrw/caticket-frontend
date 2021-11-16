@@ -35,7 +35,7 @@
       <ng-container matColumnDef="incident">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Incident Number </mat-header-cell>
         <mat-cell *matCellDef="let ticket;"  >
-         <a [routerLink]="['/ticket', ticket.incident]"> 
+         <a [routerLink]="['/tickets/view/', ticket.incident]"> 
           {{ticket.incident}}
         </a>         
         </mat-cell>

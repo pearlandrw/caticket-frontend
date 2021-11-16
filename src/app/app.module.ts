@@ -17,6 +17,7 @@ import { AuthGuard } from './_guard';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateticketComponent } from './createticket/createticket.component';
+import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { CreateticketComponent } from './createticket/createticket.component';
     LoadingComponent,
     AppComponent,
     CreateticketComponent,
+    ViewTicketComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { Ticket, ELEMENT_DATA } from './ticket';
+import { Ticket } from './ticket';
 import { TicketService} from './ticket.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {FormBuilder, FormGroup, FormControl} from '@angular/forms';

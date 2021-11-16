@@ -5,7 +5,7 @@ import { NotFoundPageComponent } from './notfoundpage';
 import { LoginComponent } from './login';
 import { LoadingComponent } from './loading';
 import { CreateticketComponent } from './createticket/createticket.component';
-
+import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 
 // const routes: Routes = [];
 
@@ -24,19 +24,20 @@ const routes: Routes = [
     import('./product/product.module').then(m => m.ProductModule)
     , canActivate: [AuthGuard]
   },
+  { 
+    path: "tickets/view/:id", 
+    component: ViewTicketComponent },
   {
     path: "tickets",
     loadChildren: () =>
     import('./ticket/ticket.module').then(m => m.TicketModule)
   },
-  {
-    path: "tickets/new",
-    component: CreateticketComponent,
-  },
-  {
-    path: "**",
-    component: NotFoundPageComponent
-  },
+  { 
+    path: "tickets/new", 
+    component: CreateticketComponent},
+  { 
+    path: "**", 
+    component: NotFoundPageComponent},
   // ]
 ];
 

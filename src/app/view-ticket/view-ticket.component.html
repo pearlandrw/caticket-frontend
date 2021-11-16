@@ -1,0 +1,93 @@
+<mat-card class='light' style="height: 100%;">
+    <mat-card-header>
+        <mat-card-title class="view-card-title">
+          <h1 style="margin-right:10px; color:#016fbf">{{pageTitle }}</h1>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field appearance="outline" >
+            <mat-label>Incident Number</mat-label>
+            <input matInput disabled> 121114
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Dealer</mat-label>
+            <input matInput disabled> Sellers Subaru
+        </mat-form-field>
+       
+        <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <input matInput disabled> Credit and Compliance Page
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+            <mat-label>Created By</mat-label>
+            <input matInput disabled> John Brenan
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Open Date</mat-label>
+            <input matInput disabled> 11/13/2021 01:50 pm
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+            <mat-label>Last Modification Date</mat-label>
+            <input matInput disabled> 11/13/2021 01:50 pm
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="outline">
+            <mat-label>Summary</mat-label>
+            <input matInput disabled> Compliance JVM Error
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Description</mat-label>
+            <input matInput #message  placeholder="Ex. I need help with...">
+          </mat-form-field>
+          <mat-accordion>
+            <mat-expansion-panel >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                 Incident Log
+                </mat-panel-title>
+                 <mat-panel-description>
+                    <button mat-raised-button style="margin-left:85%; background-color:#00893d; color:#ffffff" [routerLink]="['/tickets/new']">Add Comment</button>
+                </mat-panel-description> 
+              </mat-expansion-panel-header>
+              <!-- <p>View Attachments</p> -->
+            </mat-expansion-panel>
+            <mat-expansion-panel >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                   Incident Attachments
+                  </mat-panel-title>
+                   <mat-panel-description>
+                    <button mat-raised-button style="margin-left:85%; background-color:#00893d; color:#ffffff" [routerLink]="['/tickets/new']">Add Attachment</button>
+                  </mat-panel-description> 
+                </mat-expansion-panel-header>
+                <!-- <p>View Attachments</p> -->
+              </mat-expansion-panel>
+          </mat-accordion>
+          <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            
+               <ng-container matColumnDef="position">
+                 <th mat-header-cell *matHeaderCellDef> Created On</th>
+                 <td mat-cell *matCellDef="let log"> {{log.createdOn}} </td>
+               </ng-container>
+             
+            
+               <ng-container matColumnDef="name">
+                 <th mat-header-cell *matHeaderCellDef> Created By </th>
+                 <td mat-cell *matCellDef="let log"> {{log.createdBy}} </td>
+               </ng-container>
+             
+             
+               <ng-container matColumnDef="weight">
+                 <th mat-header-cell *matHeaderCellDef> Comment </th>
+                 <td mat-cell *matCellDef="let log"> {{log.description}} </td>
+               </ng-container>
+             
+             </table>
+    -->
+      </mat-card-content>
+     
+         
+</mat-card>
