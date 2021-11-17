@@ -1,1 +1,89 @@
-<p>createticket works!</p>
+<mat-card class='light' style="height: 100%;">
+  <mat-card-header>
+    <mat-card-title class="view-card-title">
+      <h1 style="margin-right:10px; color:#016fbf">{{pageTitle }}</h1>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
+      <select matNativeControl id="mySelectId">
+        <option value="" disabled selected></option>
+        <option value="General CAS">General CAS</option>
+        <option value="eContracting">EContracting</option>
+        <option value="maximTrak">MaximTrak</option>
+        <option value="FS Integration">FS Integration</option>
+        <option value="Credit And Compliance">Credit And Compliance</option>
+        <option value="Remote Signing">Remote Signing</option>
+        <option value="Reporting">Reporting</option>
+      </select>
+    </mat-form-field>
+    &nbsp;&nbsp;&nbsp;
+    <mat-form-field appearance="fill">
+      <mat-label>Priority</mat-label>
+      <select matNativeControl id="myPriority">
+        <option value="" disabled selected></option>
+        <option value="1-Critical">1-Critical</option>
+        <option value="2-Moderate">2-Moderate</option>
+        <option value="3-NonCritical">3-NonCritical</option>
+      </select>
+    </mat-form-field>
+    &nbsp;&nbsp;&nbsp;
+    <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
+      <select matNativeControl id="myStatus">
+        <option value="" disabled selected></option>
+        <option value="Open">Open</option>
+        <option value="InProgress">InProgress</option>
+        <option value="Esclated">Esclated</option>
+        <option value="Awaiting Customer Response">Awaiting Customer Response</option>
+        <option value="Additional Information Required">Additional Information Required</option>
+        <option value="Closed">Closed</option>
+      </select>
+    </mat-form-field>
+    <div class="container">
+
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Dealer</mat-label>
+      <input matInput disabled> Sellers Subaru
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Created By</mat-label>
+      <input matInput disabled> John Brenan
+    </mat-form-field>
+
+
+    <br />
+    <ng-container matColumnDef="summary">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Summary </mat-header-cell>
+      <mat-cell *matCellDef="let ticket" class="table-row"> "Summary" </mat-cell>
+    </ng-container>
+    <br />
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Description</mat-label>
+      <input matInput #message placeholder="Ex. I need help with...">
+    </mat-form-field>
+    <textarea _ngcontent-lnf-c200="" matinput="" class="mat-input-element mat-form-field-autofill-control ng-tns-c148-35 cdk-text-field-autofill-monitored" id="mat-input-8" data-placeholder="Ex. It makes me feel..." aria-invalid="false" aria-required="false"></textarea>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Incident Attachments
+          </mat-panel-title>
+          <mat-panel-description>
+            <button mat-raised-button style="margin-left:80%; background-color:#00893d; color:#ffffff" [routerLink]="['/tickets/new']">Add Attachment</button>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <!-- <p>View Attachments</p> -->
+      </mat-expansion-panel>
+    </mat-accordion>    
+  </mat-card-content>
+
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <button mat-raised-button style="margin-right:10px; background-color:#00893d; color:#ffffff" [routerLink]="['/tickets/new']">Submit</button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+</mat-card>

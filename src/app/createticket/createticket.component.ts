@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./createticket.component.scss']
 })
 export class CreateticketComponent implements OnInit {
-
+  pageTitle: string = 'Create New Incident';
   constructor() { }
 
   ngOnInit(): void {
