@@ -7,6 +7,7 @@ import { LoadingComponent } from './loading';
 import { CreateticketComponent } from './createticket/createticket.component';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 
+
 // const routes: Routes = [];
 
 const routes: Routes = [

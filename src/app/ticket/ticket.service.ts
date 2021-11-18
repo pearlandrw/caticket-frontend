@@ -15,21 +15,17 @@ export class TicketService {
   private basicAction = 'tickets/';
   //getTicketsUrl: string = "https://ac8ec036-e5a1-4111-bad7-44302de84709.mock.pstmn.io/getServiceTickets";
   getTicketsUrl: string = "http://localhost:8080/serviceDesk/findAll";
+  //getTicketByIdUrl: string = "http://localhost:8080/serviceDesk";
+  getTicketByIdUrl: string ="https://be670619-c132-4121-bb7d-aacda1acb886.mock.pstmn.io/ticket";
+
   constructor(private http: HttpClient, private backend: BackendService) { }
 
   getTickets(): Observable<any> {
      return this.http.get(this.getTicketsUrl);
   }
 
-  getTicket(id: number): Observable<Ticket> {
-    if (id === 0) {
-      return Observable.of(this.initializeTicket());
-    };
-    const action = `${this.basicAction}${id}?_expand=category`;
-    return this.backend.getByQuery(action)
-      .map(this.extractData)
-      // .do(data => console.log('getProduct: ' + JSON.stringify(data)))
-      .catch(this.handleError);
+  getTicket(id: number): Observable<any> {
+    return this.http.get(`${this.getTicketByIdUrl}/${id}`);
   }
 
   deleteTicket(id: number): Observable<Response> {
@@ -89,6 +85,8 @@ export class TicketService {
     assignedTo:"",
     openDate: "",
     lastModificationDate: "",
+    ticketLogList:[],
+    attachments:[]
     };
   }
 }

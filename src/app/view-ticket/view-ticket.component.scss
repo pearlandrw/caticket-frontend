@@ -1,7 +1,58 @@
-mat-form-field.mat-form-field {
-    padding-right :10px;
-    color: red($color: #000000);
+mat-form-field {
+    width: 45%;
+    padding-right: 10px;
+    padding-bottom: 2px;
+}
+.mat-input-element:disabled {
+    color: black;
+}
+.ticket-label {
+    color: steelblue !important;
+    font-weight: 500;
+    font-size: 14px;;
+}
+  .mat-expansion-panel-header-title{
+    color: #156fbf !important;
   }
-  .ticket-text-area {
-      width: 200px;
-  }
+table.mat-table {
+    width: 100%;
+    border-spacing: 0;
+    border: none;
+}
+.mat-column-createdBy {
+    flex: 0 0 20% !important;
+    width: 20% !important;
+    margin-left: 10px;
+}
+.mat-column-description {
+    flex: 0 0 60% !important;
+    width: 60% !important;
+}
+.mat-column-createdOn {
+    flex: 0 0 20% !important;
+    width: 20% !important;
+}
+.mat-column-docName {
+    flex: 0 0 20% !important;
+    width: 20% !important;
+}
+.mat-column-attachedBy {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+}
+.mat-column-descriptiona {
+    flex: 0 0 20% !important;
+    width: 20% !important;
+}
+.mat-column-attachedTimeStamp {
+    flex: 0 0 20% !important;
+    width: 20% !important;
+}
+.mat-column-document {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+}
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+    padding: 0;
+    border: none;
+}

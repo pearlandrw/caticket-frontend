@@ -1,0 +1,27 @@
+<h1 mat-dialog-title style="color:#016fbf">Add Attachment</h1>
+<div mat-dialog-content>
+    
+    <mat-form-field appearance="outline" floatLabel="always" style="width:400px">
+        <mat-label class="ticket-label">Description</mat-label>
+        <input matInput [(ngModel)]="data.description" maxlength="2000">
+    </mat-form-field>
+    <mat-card-header > 
+        <input type="file" (change)="upload($event.target.files)" />
+    </mat-card-header>
+
+    
+</div>
+<div mat-dialog-actions style="float:right">
+    <mat-card-header>
+        <mat-action-list>
+            <button mat-raised-button style="color:lightgrey; background-color:darkred; margin:5px;"
+                (click)="onCancel()">Cancel
+
+            </button>
+            <button mat-raised-button style="color:lightgrey; background-color:darkgreen;margin:5px;"
+                (click)="onOk()">Ok
+            </button>
+        </mat-action-list>
+    </mat-card-header>
+
+</div>

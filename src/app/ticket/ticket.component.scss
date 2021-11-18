@@ -1,6 +1,10 @@
 table {
     width: 100%;
   }
+  .mat-header-cell {
+    color: steelblue !important;
+    font-size: 12px;;
+  }
   
   tr.example-detail-row {
     height: 0;
@@ -53,7 +57,7 @@ table {
     margin: 5px 50;
   }
   .table-row {
-    height: 20px !important;
+    height: 10px !important;
     color: darkslategrey;
     padding: 2px 2px 2px 0;
   }
@@ -84,7 +88,7 @@ table {
     color:darkslategray;
   }
   .mat-row:nth-child(even){
-    background-color: rgba(246, 249, 250, 0.836);
+    background-color: rgba(255, 255, 255, 0.836);
 }
         
 .mat-row:nth-child(odd){

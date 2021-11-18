@@ -82,8 +82,8 @@ freshDataList(tickets: Ticket[]) {
 
   this.ticketList = tickets.map(e => {
       const ticket = e;
-      e["categoryName"] = e["category"]["categoryName"];
-      return ticket;
+     // e["categoryName"] = e["category"]["categoryName"];
+      return e;
   });
 
   this.dataSource = new MatTableDataSource(this.tickets);
@@ -101,8 +101,6 @@ ngOnInit(): void {
   this.searchFilter = {};
   this.listFilter = {};
 }
-
-
 
 getTickets(pageNum?: number) {
   this.ticketService.getTickets()

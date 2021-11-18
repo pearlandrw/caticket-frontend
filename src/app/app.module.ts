@@ -18,6 +18,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateticketComponent } from './createticket/createticket.component';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
+import {AddCommentDialog} from './view-ticket/view-ticket.component';
+import {AddAttachmentDialog} from './view-ticket/view-ticket.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { ViewTicketComponent } from './view-ticket/view-ticket.component';
     AppComponent,
     CreateticketComponent,
     ViewTicketComponent,
+    AddCommentDialog,
+    AddAttachmentDialog
   ],
   imports: [
     BrowserModule,
