@@ -69,8 +69,9 @@ table {
     width: 20% !important;
   }
   .mat-column-priority {
-    flex: 0 0 7% !important;
-    width: 7% !important;
+    margin-left: 10px;
+    flex: 0 0 5% !important;
+    width: 5% !important;
   }
   .mat-column-status {
     flex: 0 0 7% !important;
@@ -103,7 +104,7 @@ table {
     color:darkslategray;
   }
   .mat-row:nth-child(even){
-    background-color:#d4e3f1;
+    background-color:#d9dcdf;
 }
         
 .mat-row:nth-child(odd){

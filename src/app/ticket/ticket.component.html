@@ -51,8 +51,16 @@
     </ng-container>
     <ng-container matColumnDef="priority">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Priority </mat-header-cell>
-      <mat-cell *matCellDef="let ticket" class="table-row"> {{ticket.priority}}
-          </mat-cell>
+      <!-- <mat-cell *matCellDef="let ticket" class="table-row"> {{ticket.priority}}
+      </mat-cell> -->
+      <mat-cell *matCellDef="let ticket" >
+        <mat-icon style="color:red; font-size: 16px;"  matTooltip="Critical" *ngIf="ticket.priority.includes('2')">brightness_1</mat-icon>
+       
+        <mat-icon style="color:gold;font-size: 16px;"  matTooltip="Low" *ngIf="ticket.priority.includes('3')">brightness_1</mat-icon> 
+      
+        <mat-icon style="color:darkorange;font-size: 16px;"   matTooltip="Moderate" *ngIf="ticket.priority.includes('4')">brightness_1</mat-icon>
+        
+      </mat-cell>
     </ng-container>
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
