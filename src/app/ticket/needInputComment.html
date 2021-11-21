@@ -1,0 +1,24 @@
+<h3 mat-dialog-title style="color:#016fbf">Please provide requested additional information</h3>
+<div mat-dialog-content>
+    <mat-form-field appearance="outline" style="width: 100%;">
+        <textarea matInput rows="5" cols="900" [(ngModel)]="data.comment"> </textarea>
+    </mat-form-field>
+    <button mat-mini-fab style="background-color:#00893d" hint="Add Attachment">
+        <mat-icon>attach_file</mat-icon>
+      </button>
+</div>
+
+<div mat-dialog-actions style="float:right">
+    <mat-card-header>
+        <mat-action-list>
+            <button mat-raised-button style="color:lightgrey; background-color:darkred; margin:5px;"
+                (click)="onNeedInputCancel()">Cancel
+
+            </button>
+            <button mat-raised-button style="color:lightgrey; background-color:darkgreen;margin:5px;"
+                (click)="onNeedInputOk()">Ok
+            </button>
+        </mat-action-list>
+    </mat-card-header>
+</div>
+<input matInput  [(ngModel)]="data.incident" hidden>

@@ -1,50 +1,29 @@
 <mat-progress-bar *ngIf="isloading" class="progress-bar" mode="indeterminate"></mat-progress-bar>
-
 <div *ngIf="!authService.isAuthenticated()">
   <login-form (isAuth)="isAuth($event)"></login-form>
 </div>
 <div *ngIf="authService.isAuthenticated()" [ngClass]="uiContent" role="main">
   <mat-sidenav-container class="app-container" autosize fullscreen>
-    <!-- <mat-sidenav dark #sidenav id="appnav" [mode]="mode" [opened]="!isMobile">
-       <mat-card class="profile-card">
-        <mat-card-header>
-          <img src="/assets/img/logo.PNG" class="mat-card-title"> 
-          <mat-card-title [hidden]="user!==null && user!==undefined" style="padding:5px;">
-            {{user?.firstname}} {{user?.lastname}}
-          </mat-card-title>
-        </mat-card-header>
-       
-      </mat-card> -->
-      <!-- <mat-nav-list>
-        <a mat-list-item routerLink="tickets">
-          <mat-icon mat-list-icon>store</mat-icon>
-          <span mat-line>Incident Manager</span>
-        </a>
-      </mat-nav-list> 
-    </mat-sidenav> -->
-    <mat-sidenav-content class="sidenav-content" >
-      <mat-toolbar dark style="background-color:#3f51b5">
-        <!-- <button mat-icon-button (click)="sidenav.toggle()">
-          <mat-icon mat-list-icon>list</mat-icon>
-        </button>  -->
+    <mat-sidenav-content class="sidenav-content">
+      <mat-toolbar dark style="background-color:#016fbf">
         <span style="margin-left: 20px;width:100%; font-size: 14px; color: #ffffff;">
-       Michigan Dealer (XL1HX)
-          
+          {{dealerName}}
+
         </span>
-        <span style="float:right; font-size: 14px;  color: #ffffff;" >
-         John Brenan
-          <button mat-icon-button [matMenuTriggerFor]="menu" >
+        <span style="float:right; font-size: 14px;  color: #ffffff;">
+          {{userName}}
+          <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon style="padding-right: 3px;">account_circle</mat-icon>
-           
+
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="logout()">Logout</button>
             <button mat-menu-item>Change Password</button>
           </mat-menu>
         </span>
-
       </mat-toolbar>
       <div class="main-content">
+        <img style="margin-left: 1%;" src="../../assets/img/menu.PNG">
         <router-outlet></router-outlet>
       </div>
     </mat-sidenav-content>

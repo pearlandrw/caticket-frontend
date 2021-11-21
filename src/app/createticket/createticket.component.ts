@@ -3,7 +3,8 @@ import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/form
 import { Ticket } from '../ticket/ticket';
 import { TicketLog, TicketAttachment } from '../view-ticket/view-ticket';
 import {NewTicket} from './createticket';
-
+import { TicketService } from '../ticket/ticket.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -14,29 +15,48 @@ import {NewTicket} from './createticket';
 export class CreateticketComponent implements OnInit {
   pageTitle: string = 'Create New Incident';
   newTicket: NewTicket;
-  constructor() { }
+  dealerName:string;
+  constructor(private ticketService: TicketService, private router: Router) { }
 
   ngOnInit(): void {
+    this.dealerName = "Michigan Dealer Name"; //TODO Parameterize
     this.newTicket =this.initializeTicket();
   }
 
   initializeTicket(): NewTicket {
     return {
-    createdBy:"John Brenan", //TODO Logged In User
+    incident:0,
     summary: "",
-    dealerId: "",
-    dealerName: "Southfield Toyota", //TODO Selected Dealership
-    description: "",
-    userId: "",
+    dealerId: localStorage.getItem("dealerId"),
+    userName: localStorage.getItem("userName"), 
+    userId:localStorage.getItem("userId"),
     category:"",
-    dms: "",
-    fs:"",
-    country: "US", //Dealer Country of origin
-    dealNumber: "",
-    conversationId: "",
-    creditappConversationId: "",
+    priority:"",
+    status:"",
+    openDate:"",
+    lastModificationDate:"",
+    description: "",
+    reportingmethod:"",
+    groupName:"",
+    dealId:"",
+    contractConversationId:"",
+    oldCreditAppCvrsId:"",
+    newCreditAppCvrsId:"",
+    ticketLogList:[],
     attachments: []
+    
+    //dms: "",
+    //fs:"",
     };
+  }
+
+  createNewTicket(): void{
+    this.ticketService.saveTicket(this.newTicket);
+    console.log("Ticket Saved:"+this.newTicket.category);
+  }
+
+  addAttachment(): void{
+    
   }
 
 }

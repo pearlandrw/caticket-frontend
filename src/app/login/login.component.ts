@@ -2,7 +2,8 @@ import {
   Component,
   EventEmitter,
   OnInit,
-  Output} from "@angular/core";
+  Output
+} from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
 import { AuthenticationService } from "../_services";
@@ -29,12 +30,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     // this.authenticationService.logout();
-    this.model.username = "Admin@test.com";
+    this.model.username = "johndlr";
     this.model.password = "password";
     this.returnUrl =
       this.route.snapshot.queryParams["returnUrl"] || "loading";
-      // this.isloading = false;
-      // this.isAuthenticated =  false;
+    // this.isloading = false;
+    // this.isAuthenticated =  false;
 
   }
 
@@ -44,13 +45,13 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.model).subscribe(
       () => {
         // this.isAuthenticated =  true;
-        console.log(" next action here ... " );
+        console.log(" next action here ... ");
       },
       error => {
         console.log(error);
         this.isValidating = false;
       },
-      ()=>{
+      () => {
         this.isValidating = false;
         console.log("login " + this.returnUrl);
         this.isAuth.emit(true);

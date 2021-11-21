@@ -1,0 +1,20 @@
+<h3 mat-dialog-title style="color:#016fbf">Please add a reason for Incident Close Request</h3>
+<div mat-dialog-content>
+    <mat-form-field appearance="outline" style="width: 100%;">
+        <textarea matInput rows="5" cols="900" [(ngModel)]="data.comment"> </textarea>
+    </mat-form-field>
+</div>
+<input matInput  [(ngModel)]="data.incident" hidden>
+<div mat-dialog-actions style="float:right">
+    <mat-card-header>
+        <mat-action-list>
+            <button mat-raised-button style="color:lightgrey; background-color:darkred; margin:5px;"
+                (click)="onRequestCloseCancel()">Cancel
+
+            </button>
+            <button mat-raised-button style="color:lightgrey; background-color:darkgreen;margin:5px;"
+                (click)="onRequestCloseOk()">Ok
+            </button>
+        </mat-action-list>
+    </mat-card-header>
+</div>

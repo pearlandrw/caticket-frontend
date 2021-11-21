@@ -4,20 +4,25 @@ import { Time } from '@angular/common';
 import { TicketLog , TicketAttachment} from '../view-ticket/view-ticket';
 
 export interface NewTicket {
-    createdBy:string;
+    incident: number;
     summary: string;
     dealerId: string;
-    dealerName: string;
-    description: string;
-    userId: string;
-    category:string;
-    dms:string;
-    fs:string;
-    country: string;
-    dealNumber: string;
-    conversationId: string;
-    creditappConversationId: string;
-    attachments : TicketAttachment[];
+    userName: string,
+    userId: string,
+    category: string,
+    priority: string,
+    status: string,
+    openDate: string,
+    lastModificationDate:string,
+    description: string,
+    reportingmethod:string,
+    groupName:string,
+    dealId:string,
+    contractConversationId:string,
+    oldCreditAppCvrsId:string,
+    newCreditAppCvrsId:string,
+    ticketLogList:any[],
+    attachments:TicketAttachment[];
 }
 
  

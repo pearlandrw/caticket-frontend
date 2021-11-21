@@ -1,9 +1,12 @@
 table {
     width: 100%;
   }
+  mat-row, mat-footer-row {
+    min-height: 32px !important;
+}
   .mat-header-cell {
-    color: steelblue !important;
-    font-size: 12px;;
+    color: #156fbf   !important;
+    font-size: 14px;;
   }
   
   tr.example-detail-row {
@@ -66,16 +69,28 @@ table {
     width: 20% !important;
   }
   .mat-column-priority {
-    flex: 0 0 10% !important;
-    width: 10% !important;
+    flex: 0 0 7% !important;
+    width: 7% !important;
+  }
+  .mat-column-status {
+    flex: 0 0 7% !important;
+    width: 7% !important;
   }
   .mat-column-incident {
-    flex: 0 0 10% !important;
-    width: 10% !important;
+    flex: 0 0 5% !important;
+    width: 5% !important;
   }
   .mat-column-dealer {
     flex: 0 0 20% !important;
     width: 20% !important;
+  }
+  .mat-column-lastModificationDate {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+  }  
+  .mat-column-openDate {
+    flex: 0 0 10% !important;
+    width: 10% !important;
   }
   .mat-checkbox{
     padding-right:6px;
@@ -88,9 +103,9 @@ table {
     color:darkslategray;
   }
   .mat-row:nth-child(even){
-    background-color: rgba(255, 255, 255, 0.836);
+    background-color:#d4e3f1;
 }
         
 .mat-row:nth-child(odd){
-    background-color: rgb(231, 234, 236);
+    background-color: white;
 }

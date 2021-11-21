@@ -20,6 +20,8 @@ import { CreateticketComponent } from './createticket/createticket.component';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 import {AddCommentDialog} from './view-ticket/view-ticket.component';
 import {AddAttachmentDialog} from './view-ticket/view-ticket.component';
+import {AddRequestCloseCommentDialog} from './ticket/ticket.component';
+import {NeedInputCommentDialog} from './ticket/ticket.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import {AddAttachmentDialog} from './view-ticket/view-ticket.component';
     CreateticketComponent,
     ViewTicketComponent,
     AddCommentDialog,
-    AddAttachmentDialog
+    AddAttachmentDialog,
+    AddRequestCloseCommentDialog,
+    NeedInputCommentDialog
   ],
   imports: [
     BrowserModule,

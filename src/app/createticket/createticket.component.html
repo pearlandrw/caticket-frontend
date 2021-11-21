@@ -1,4 +1,4 @@
-<mat-card class='light' style="height: 100%;">
+<mat-card class='light' style="height: 650px !important">
   <mat-card-header>
     <mat-card-title class="view-card-title">
       <h1 style="margin-right:10px; color:#016fbf">{{pageTitle }}</h1>
@@ -8,47 +8,50 @@
     <mat-form-field appearance="outline" floatLabel="always" style="width: 25%;margin-right: 15px;">
       <mat-label class="ticket-label">Category</mat-label>
       <mat-select [(ngModel)]="newTicket.category" required>
-        <mat-option value="General CAS">General CAS</mat-option>
-        <mat-option value="EContracting">EContracting</mat-option>
-        <mat-option value="MaximTrak">MaximTrak</mat-option>
-        <mat-option value="FS Integration">FS Integration</mat-option>
-        <mat-option value="Credit And Compliance">Credit And Compliance</mat-option>
-        <mat-option value="Remote Signing">Remote Signing</mat-option>
-        <mat-option value="Reporting">Reporting</mat-option>
+        <mat-option value="pcat:400162">General CAS</mat-option>
+        <mat-option value="pcat:400162">Password Reset</mat-option>
+        <mat-option value="pcat:401050">EContracting</mat-option>
+        <mat-option value="pcat:401050">MaximTrak</mat-option>
+        <mat-option value="pcat:401050">FS Integration</mat-option>
+        <mat-option value="pcat:400926">Credit And Compliance</mat-option>
+        <mat-option value="pcat:400926">Remote Signing</mat-option>
+        <mat-option value="pcat:400926">Reporting</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="outline" floatLabel="always" style="width: 25%;margin-right: 15px;">
       <mat-label class="ticket-label">Dealer</mat-label>
-      <input matInput [(ngModel)]="newTicket.dealerName" disabled>
+      <input matInput [(ngModel)]="dealerName" disabled>
     </mat-form-field>
 
     <mat-form-field appearance="outline" floatLabel="always" style="width: 25%;margin-right: 15px;">
       <mat-label class="ticket-label">Created By</mat-label>
-      <input matInput [(ngModel)]="newTicket.createdBy" disabled>
+      <input matInput [(ngModel)]="newTicket.userName" disabled>
     </mat-form-field>
     <br />
     <mat-form-field appearance="outline" floatLabel="always" style="width:25%;margin-right: 15px;">
       <mat-label class="ticket-label">DMS</mat-label>
-      <input matInput [(ngModel)]="newTicket.dms">
+      <!-- TODO <input matInput [(ngModel)]="newTicket.dms" >-->
+      <input matInput>
     </mat-form-field>
 
     <mat-form-field appearance="outline" floatLabel="always" style="width:25%;margin-right: 15px;">
       <mat-label class="ticket-label">Finance Source</mat-label>
-      <input matInput [(ngModel)]="newTicket.fs">
+      <!-- TODO <input matInput [(ngModel)]="newTicket.fs"> -->
+      <input matInput>
     </mat-form-field>
     <br />
     <mat-form-field appearance="outline" floatLabel="always" style="width:25%;margin-right: 15px;">
       <mat-label class="ticket-label">Deal Number</mat-label>
-      <input matInput [(ngModel)]="newTicket.dealNumber">
+      <input matInput [(ngModel)]="newTicket.dealId">
     </mat-form-field>
     <mat-form-field appearance="outline" floatLabel="always" style="width:25%;margin-right: 15px;">
       <mat-label class="ticket-label">Contract Conversation ID</mat-label>
-      <input matInput [(ngModel)]="newTicket.conversationId">
+      <input matInput [(ngModel)]="newTicket.contractConversationId">
     </mat-form-field>
     <mat-form-field appearance="outline" floatLabel="always" style="width:25%;margin-right: 15px;">
       <mat-label class="ticket-label">Credit Application Conversation ID</mat-label>
-      <input matInput [(ngModel)]="newTicket.creditappConversationId">
+      <input matInput [(ngModel)]="newTicket.newCreditAppCvrsId">
     </mat-form-field>
 
     <br />
@@ -63,35 +66,23 @@
     </mat-form-field>
     <br />
 
-
-    <div class="container">
-
-    </div>
-
-    <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Incident Attachments
-          </mat-panel-title>
-          <mat-panel-description>
-            <button mat-raised-button style="margin-left:80%; background-color:#00893d; color:#ffffff"
-              [routerLink]="['/tickets/new']">Add Attachment</button>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <!-- <p>View Attachments</p> -->
-      </mat-expansion-panel>
-    </mat-accordion>
- 
-
-
-    
-    <mat-action-list>
-      <button mat-raised-button style="color:lightgrey; background-color:darkgreen; margin:5px;">Save
-      </button>
-      <button mat-raised-button style="color:lightgrey; background-color:darkred;margin:5px;">Cancel
-      </button>
-    </mat-action-list>
-
-</mat-card-content>
+    <mat-card>
+      <mat-card-title style="margin-right: 10px;color: #016fbf;font-weight:400; font-size: 20px;">Attachments 
+        <button mat-mini-fab style="background-color:#00893d" (click)="addAttachment()" aria-label="Add Attachment">
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+      </mat-card-title>
+      <mat-card-content>
+      </mat-card-content>
+    </mat-card>
+    <mat-toolbar style="margin-left: 86%; background-color: #ffffff;">  
+      <button mat-raised-button style="color:#ffffff; background-color:darkgreen; margin:5px;"
+      (click)="createNewTicket();"><mat-icon>check_circle</mat-icon> &nbsp;Save
+    </button>
+    <button mat-raised-button style="color:#ffffff; background-color:darkred;margin:5px;"
+      [routerLink]="['/tickets']"><mat-icon>cancel</mat-icon>&nbsp;Cancel
+    </button>
+    </mat-toolbar>
+    <br/>
+  </mat-card-content>
 </mat-card>

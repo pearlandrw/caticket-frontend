@@ -9,19 +9,29 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import { Ticket } from './ticket';
 import { tick } from '@angular/core/testing';
+import { NewTicket } from '../createticket/createticket';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class TicketService {
+  newTicketId:number
   private basicAction = 'tickets/';
   //getTicketsUrl: string = "https://ac8ec036-e5a1-4111-bad7-44302de84709.mock.pstmn.io/getServiceTickets";
   getTicketsUrl: string = "http://localhost:8080/serviceDesk/findAll";
-  //getTicketByIdUrl: string = "http://localhost:8080/serviceDesk";
-  getTicketByIdUrl: string ="https://be670619-c132-4121-bb7d-aacda1acb886.mock.pstmn.io/ticket";
 
-  constructor(private http: HttpClient, private backend: BackendService) { }
+getTicketByIdUrl: string = "http://localhost:8080/serviceDesk";
+  //getTicketByIdUrl: string ="https://be670619-c132-4121-bb7d-aacda1acb886.mock.pstmn.io/ticket";
 
-  getTickets(): Observable<any> {
-     return this.http.get(this.getTicketsUrl);
+  //Create Ticket URL
+  createTicketsUrl: string = "http://localhost:8080/serviceDesk/";
+
+  //Close Ticket
+  closeTicketUrl : string =  "http://localhost:8080/serviceDesk/addTicketLog/";
+
+  constructor(private http: HttpClient, private backend: BackendService, private router: Router) { }
+
+  getTickets(dealerId:string): Observable<any> {
+     return this.http.get(`${this.getTicketsUrl}/${dealerId}`);
   }
 
   getTicket(id: number): Observable<any> {
@@ -34,24 +44,39 @@ export class TicketService {
       .catch(this.handleError);
   }
 
-  saveProduct(ticket: Ticket): Observable<Ticket> {
+  closeTicket(id:number, closeDescription: string): Observable<any> {
+    return this.http.put(`${this.closeTicketUrl}/${id}`, {"statusRequested":"CLREQ", "description":closeDescription});
+  }
+
+  acknowledgeTicket(id:number, ackDescription: string): Observable<any> {
+    return this.http.put(`${this.closeTicketUrl}/${id}`, {"statusRequested":"ACK", "description":ackDescription});
+  }
+
+  saveTicket(ticket: NewTicket): number {
     // let headers = new Headers({ 'Content-Type': 'application/json' });
     // let options = new RequestOptions({ headers: headers });
 
     if (ticket.incident === 0) {
       return this.createTicket(ticket);
     }
-    return this.updateTicket(ticket);
+    //return this.updateTicket(ticket);
   }
   
-  private createTicket(ticket: Ticket): Observable<Ticket> {
-    ticket.incident = null;
-    return this.backend.create(this.basicAction, ticket)
-      .map(this.extractData)
-      .catch(this.handleError);
+  private createTicket(ticket: NewTicket): number {
+     this.http.post(`${this.createTicketsUrl}`, ticket)
+     .subscribe({
+      next: data => {
+        this.router.navigateByUrl('/tickets');
+         return data;
+      },
+      error: error => {
+          console.error('There was an error!', error);
+      }
+  });
+  return this.newTicketId;
   }
 
-  private updateTicket(ticket: Ticket): Observable<Ticket> {
+  private updateTicket(ticket: NewTicket): Observable<Ticket> {
     const action = `${this.basicAction}${ticket.incident}`;
     return this.backend.update(action, ticket)
       .map(() => ticket)

@@ -4,6 +4,7 @@ import { TicketService } from '../ticket/ticket.service';
 import { Ticket } from '../ticket/ticket';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {HttpClientModule, HttpClient, HttpRequest, HttpResponse, HttpEventType} from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-view-ticket',
@@ -14,10 +15,11 @@ import {HttpClientModule, HttpClient, HttpRequest, HttpResponse, HttpEventType} 
 
 export class ViewTicketComponent implements OnInit {
   displayedLogColumns: string[] = ['description', 'createdBy', 'createdOn'];
-  displayedAttachmentColumns: string[] = ['docName', 'attachedTimeStamp', 'attachedBy', 'document', 'description'];
+  displayedAttachmentColumns: string[] = ['docName', 'attachedTimeStamp', 'attachedBy', 'description'];
   logdataSource: TicketLog[];
   attachmentDataSource: TicketAttachment[];
   pageTitle: string = 'Incident Details';
+  isTicketDetailLoading: boolean = true;
 
   panelOpenState = false;
   errorMessage: string;
@@ -25,23 +27,31 @@ export class ViewTicketComponent implements OnInit {
   ticket: Ticket;
   ticketLog: TicketLog[];
   ticketAttachments: TicketAttachment[];
+  ticketId:number;
+  isLoading :boolean = true;
 
-
-  constructor(private ticketService: TicketService, public dialog: MatDialog) {
+  constructor(private ticketService: TicketService, public dialog: MatDialog,private _Activatedroute:ActivatedRoute) {
+    this.ticketId  = +this._Activatedroute.snapshot.paramMap.get("id");
   }
 
   ngOnInit(): void {
-    this.getTicket(1360748);
+    console.log("View Ticket for Incident:"+this.ticketId);
+    this.getTicket(this.ticketId);
   }
 
   getTicket(id: number): void {
+    this.isTicketDetailLoading= true;
     this.ticketService
       .getTicket(id)
       .subscribe(ticket => {
         console.log("debug");
         this.onProductRetrieved(ticket);
+        this.isTicketDetailLoading= false;
       },
-        (error: any) => (this.errorMessage = <any>error)
+        (error: any) => {(
+          this.errorMessage = <any>error);
+          this.isTicketDetailLoading= false;
+        }
       );
   }
 
@@ -75,7 +85,6 @@ export class ViewTicketComponent implements OnInit {
 
     });
   }
-
 }
 
 @Component({
@@ -111,7 +120,7 @@ export interface CommentDialogData {
 export class AddAttachmentDialog {
   percentDone: number;
   constructor(
-    public dialogRef: MatDialogRef<AddCommentDialog>,
+    public dialogRef: MatDialogRef<AddAttachmentDialog>,
     @Inject(MAT_DIALOG_DATA) public data: AttachmentDialogData,
     private http: HttpClient, 
   ) { }

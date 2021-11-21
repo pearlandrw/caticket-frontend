@@ -1,184 +1,182 @@
 <!-- <mat-sidenav-container> -->
-  <mat-card class='light' style="height: 100%;">
+<mat-card class='light' style="height: 100%;">
+  <mat-card-header>
+    <mat-card-title class="view-card-title">
+      <h1 style="margin-right:10px; color:#016fbf">{{pageTitle }}</h1>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <button mat-raised-button style="margin-right:10px; background-color:#00893d; color:#ffffff"
+        [routerLink]="['/tickets/new']">
+        <mat-icon>bug_report</mat-icon> &nbsp;Report New Incident
+      </button>
+
+
+      <span class="title-spacer"></span>
+      <mat-form-field appearance="legacy" class="search-form-fileld">
+        <mat-label style=" color:gray; font-size: 12px;;">Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event.target.value)">
+        <mat-icon style="color:#9aa0a6">filter_list</mat-icon>
+        <mat-icon style="color:#9aa0a6">filter_alt</mat-icon>
+      </mat-form-field>
+
+      <span class="title-spacer"></span>
+      <button mat-mini-fab style="margin-right:10px; background-color:#016fbf; color:#ffffff;"
+        (click)="sidenav.toggle()">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-mini-fab style="margin-right:10px; background-color:#016fbf; color:#ffffff;" (click)="reset()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-table #table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="incident">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Incident # </mat-header-cell>
+      <mat-cell *matCellDef="let ticket;"> {{ticket.incident}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="summary">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Summary </mat-header-cell>
+      <mat-cell *matCellDef="let ticket" class="table-row"> {{ ticket.summary }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="dealerName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Dealer </mat-header-cell>
+      <mat-cell *matCellDef="let ticket" class="table-row"> {{ ticket.dealerName  }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
+      <mat-cell *matCellDef="let ticket" class="table-row"> {{ticket.category}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="priority">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Priority </mat-header-cell>
+      <mat-cell *matCellDef="let ticket" class="table-row"> {{ticket.priority}}
+          </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+      <mat-cell *matCellDef="let ticket" class="table-row"> {{ticket.status}}
+      </mat-cell>
+
+    </ng-container>
+    <ng-container matColumnDef="userId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Created By </mat-header-cell>
+      <mat-cell *matCellDef="let ticket" class="table-row">
+        <mat-icon>account_circle</mat-icon>&nbsp; {{ticket.userId}}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="openDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
+      <mat-cell *matCellDef="let ticket" class="table-row"> {{ticket.openDate}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="lastModificationDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Last Modified On </mat-header-cell>
+      <mat-cell *matCellDef="let ticket" class="table-row"> {{ticket.lastModificationDate}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef >Actions </mat-header-cell>
+      <mat-cell *matCellDef="let ticket" >
+        <mat-icon style="color:#016fbf;"  [routerLink]="['/tickets/view', ticket.incident]" matTooltip="View More Details">visibility</mat-icon>
+        &nbsp;&nbsp;
+        <mat-icon style="color:darkgreen;"  (click)="openRequestCloseComment(ticket.incident)" matTooltip="Request Close" *ngIf="!ticket.status.includes('Close')">cancel</mat-icon> 
+        &nbsp; &nbsp; 
+        <mat-icon style="color:red;" (click)="openNeedInputComment(ticket.incident)"  matTooltip="Need Input" *ngIf="ticket.status.includes('Await')">notification_important</mat-icon>
+        
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <br />
+  <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+    <mat-progress-spinner color="primary" mode="indeterminate" diameter="50"> </mat-progress-spinner>
+  </div>
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10]">
+  </mat-paginator>
+
+</mat-card>
+<mat-sidenav class="search-panel" position="end" dark #sidenav mode="push" opened="false">
+
+  <mat-card class="profile-card">
     <mat-card-header>
-      <mat-card-title class="view-card-title">
-        <h1 style="margin-right:10px; color:#016fbf">{{pageTitle }}</h1>
+      <div mat-card-avatar class="avatar">
+        <mat-icon>search</mat-icon>
+      </div>
+      <mat-card-title>
+        Advanced Search
       </mat-card-title>
     </mat-card-header>
-    <mat-toolbar>
-      <mat-toolbar-row>
-        <button mat-raised-button style="margin-right:10px; background-color:#00893d; color:#ffffff" [routerLink]="['/tickets/new']">Report New Incident</button>
-        <!-- <button mat-mini-fab style="margin-right:10px; background-color:#016fbf" [routerLink]="['/tickets/edit', 0]">
-          <mat-icon>add</mat-icon>
-        </button> -->
-        
-        <span class="title-spacer"></span>
-        <mat-form-field appearance="legacy" class="search-form-fileld">
- 
-          <input matInput (keyup)="applyFilter($event.target.value)">
-          <mat-icon style="color:#9aa0a6">filter_list</mat-icon>
-          <mat-icon style="color:#9aa0a6">filter_alt</mat-icon>
-        </mat-form-field>
-
-        <span class="title-spacer"></span>
-
-        <button mat-mini-fab style="margin-right:10px; background-color:#016fbf" (click)="sidenav.toggle()">
-          <mat-icon>search</mat-icon>
-        </button>
-        <button mat-mini-fab style="margin-right:10px; background-color:#016fbf" (click)="reset()">
-          <mat-icon>refresh</mat-icon>
-        </button>
-      </mat-toolbar-row>
-    </mat-toolbar>
-  
-    <mat-table #table [dataSource]="dataSource" matSort>
-      <ng-container matColumnDef="incident">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Incident Number </mat-header-cell>
-        <mat-cell *matCellDef="let ticket;"  >
-         <a [routerLink]="['/tickets/view/', ticket.incident]"> 
-          {{ticket.incident}}
-        </a>         
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="summary">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Summary </mat-header-cell>
-        <mat-cell *matCellDef="let ticket" class="table-row" > {{ ticket.summary }} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="dealerName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Dealer </mat-header-cell>
-        <mat-cell *matCellDef="let ticket" class="table-row" > {{ ticket.dealerName  }} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="category">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
-        <mat-cell *matCellDef="let ticket" class="table-row"> {{ticket.category}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="priority">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Priority </mat-header-cell>
-        <mat-cell *matCellDef="let ticket" class="table-row">
-          
-         {{ticket.priority}}
-         <!-- TODO 
-          RED <img src="https://img.icons8.com/material/24/fa314a/filled-circle.png"/> 
-          BLACK <img src="https://img.icons8.com/material/20/000000/filled-circle.png"/>
-          YELLOW <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#f1c40f"><path d="M86,14.33333c-39.58041,0 -71.66667,32.08626 -71.66667,71.66667c0,39.58041 32.08626,71.66667 71.66667,71.66667c39.58041,0 71.66667,-32.08626 71.66667,-71.66667c0,-39.58041 -32.08626,-71.66667 -71.66667,-71.66667z"></path></g></g></svg>
-        -->
-
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-        <mat-cell *matCellDef="let ticket" class="table-row"> {{ticket.status}}
-       </mat-cell>
-        
-      </ng-container>
-      <ng-container matColumnDef="userId">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Created By </mat-header-cell>
-        <mat-cell *matCellDef="let ticket" class="table-row"><mat-icon>account_circle</mat-icon>  {{ticket.userId}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="openDate">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
-        <mat-cell *matCellDef="let ticket" class="table-row"> {{ticket.openDate}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="lastModificationDate">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Last Modification Date </mat-header-cell>
-        <mat-cell *matCellDef="let ticket" class="table-row"> {{ticket.lastModificationDate}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef style="justify-content:right;">
-          <!-- <button mat-button style="color:white; background-color:darkgrey" (click)="resetListFilter()">Reset</button> -->
-        </mat-header-cell>
-        <mat-cell *matCellDef="let ticket" style="justify-content:right;">
-          <button mat-mini-fab style="background-color:teal; min-height: 30px;   margin: 5px;"
-            [routerLink]="['/tickets/edit', ticket.incident]">
-            <mat-icon>edit</mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10]">
-    </mat-paginator>
-  
   </mat-card>
-  <mat-sidenav class="search-panel" position="end" dark #sidenav mode="push" opened="false">
-  
-    <mat-card class="profile-card">
-      <mat-card-header>
-        <div mat-card-avatar class="avatar">
-          <mat-icon>search</mat-icon>
-        </div>
-        <mat-card-title>
-          Advanced Search
-        </mat-card-title>
-      </mat-card-header>
-    </mat-card>
-    <mat-nav-list style="margin-left:20px;">
-      <mat-form-field>
-        <input matInput type="text" placeholder="Incident Number" style="width:200px;" name="incident" [(ngModel)]="searchFilter.incident" #ticket />
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="text" placeholder="Summary" style="width:200px;" name="summary" [(ngModel)]="searchFilter.summary"
-          #price />
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="text" placeholder="Dealer" style="width:200px;" name="dealer" [(ngModel)]="searchFilter.dealer" #dealer />
-      </mat-form-field>
-      
-      <mat-form-field>
-        <input matInput type="text" placeholder="Created By" style="width:200px;" name="createdBy" [(ngModel)]="searchFilter.createdBy" #createdBy />
-      </mat-form-field>
-      <mat-divider></mat-divider>
-      
-      <mat-form-field appearance="fill">
-        <mat-label>Priority</mat-label>
-        <mat-select [formControl]="searchPriorities"  multiple>
-          <mat-option *ngFor="let priority of searchPriorityList" [value]="priority">{{priority}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+  <mat-nav-list style="margin-left:20px;">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Incident Number" style="width:200px;" name="incident"
+        [(ngModel)]="searchFilter.incident" #ticket />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" placeholder="Summary" style="width:200px;" name="summary"
+        [(ngModel)]="searchFilter.summary" #price />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" placeholder="Dealer" style="width:200px;" name="dealer"
+        [(ngModel)]="searchFilter.dealer" #dealer />
+    </mat-form-field>
 
-      <mat-divider></mat-divider>
-      <mat-form-field appearance="fill">
-        <mat-label>Category</mat-label>
-        <mat-select [formControl]="searchCategories" multiple>
-          <mat-option *ngFor="let category of searchCategoryList" [value]="category">{{category}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Status</mat-label>
-        <mat-select [formControl]="searchStatuses" multiple>
-          <mat-option *ngFor="let status of searchStatusList" [value]="status">{{status}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Ticket Active Date Range</mat-label>
-        <mat-date-range-input [formGroup]="searchTicketDateRange" [rangePicker]="picker">
-          <input matStartDate formControlName="searchTicketStartDate" placeholder="From date">
-          <input matEndDate formControlName="searchTicketEndDate" placeholder="To date">
-        </mat-date-range-input>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
-      
-        <mat-error *ngIf="searchTicketDateRange.controls.start?.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-        <mat-error *ngIf="searchTicketDateRange.controls.end?.hasError('matEndDateInvalid')">Invalid end date</mat-error>
-      </mat-form-field>
-
-    </mat-nav-list>
-  
+    <mat-form-field>
+      <input matInput type="text" placeholder="Created By" style="width:200px;" name="createdBy"
+        [(ngModel)]="searchFilter.createdBy" #createdBy />
+    </mat-form-field>
     <mat-divider></mat-divider>
-    <mat-card-header>
-      <mat-action-list>
-        <button mat-raised-button style="color:lightgrey; background-color:darkgreen; margin:5px;"
-          (click)="searchTickets(searchFilter);sidenav.toggle()">
-          <mat-icon>search</mat-icon>Search
-        </button>
-        <button mat-raised-button style="color:lightgrey; background-color:darkred;margin:5px;"
-          (click)="resetSearchFilter(sidenav)">
-          <mat-icon>refresh</mat-icon>Reset
-        </button>
-      </mat-action-list>
-    </mat-card-header>
-  </mat-sidenav>
-  <!-- </mat-sidenav-container> -->
-  
+
+    <mat-form-field appearance="fill">
+      <mat-label>Priority</mat-label>
+      <mat-select [formControl]="searchPriorities" multiple>
+        <mat-option *ngFor="let priority of searchPriorityList" [value]="priority">{{priority}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-divider></mat-divider>
+    <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
+      <mat-select [formControl]="searchCategories" multiple>
+        <mat-option *ngFor="let category of searchCategoryList" [value]="category">{{category}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
+      <mat-select [formControl]="searchStatuses" multiple>
+        <mat-option *ngFor="let status of searchStatusList" [value]="status">{{status}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Ticket Active Date Range</mat-label>
+      <mat-date-range-input [formGroup]="searchTicketDateRange" [rangePicker]="picker">
+        <input matStartDate formControlName="searchTicketStartDate" placeholder="From date">
+        <input matEndDate formControlName="searchTicketEndDate" placeholder="To date">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+
+      <mat-error *ngIf="searchTicketDateRange.controls.start?.hasError('matStartDateInvalid')">Invalid start date
+      </mat-error>
+      <mat-error *ngIf="searchTicketDateRange.controls.end?.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+    </mat-form-field>
+
+  </mat-nav-list>
+
+  <mat-divider></mat-divider>
+  <mat-card-header>
+    <mat-action-list>
+      <button mat-raised-button style="color:#ffffff; background-color:darkgreen; margin:5px;"
+        (click)="searchTickets(searchFilter);sidenav.toggle()">
+        <mat-icon>search</mat-icon>Search
+      </button>
+      <button mat-raised-button style="color:#ffffff; background-color:darkred;margin:5px;"
+        (click)="resetSearchFilter(sidenav)">
+        <mat-icon>refresh</mat-icon>Reset
+      </button>
+    </mat-action-list>
+  </mat-card-header>
+</mat-sidenav>
+<!-- </mat-sidenav-container> -->

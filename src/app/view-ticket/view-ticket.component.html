@@ -1,116 +1,119 @@
 <mat-card class='light' style="height: 100%;">
-  
-  <mat-toolbar>
-    <mat-toolbar-row>
-      <button [routerLink]="['/tickets']" >
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-    </mat-toolbar-row>
-  </mat-toolbar>
   <mat-card-header>
     <mat-card-title class="view-card-title">
-      <h1 style="margin-right:10px; color:#016fbf">{{pageTitle }}</h1>
+      <span style="margin-right:10px; color:#016fbf">{{pageTitle }}</span>
     </mat-card-title>
   </mat-card-header>
+  <div *ngIf="isTicketDetailLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+    <mat-progress-spinner color="primary" mode="indeterminate" diameter="50"> </mat-progress-spinner>
+  </div>
   <mat-card-content>
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label class="ticket-label">Incident Number</mat-label>
-      <input matInput [(ngModel)]="ticket.incident" disabled>
-    </mat-form-field>
+    <mat-tab-group>
+      <mat-tab style="color:#016fbf" >
+        <ng-template mat-tab-label style="color:#016fbf" >
+          <mat-icon>dehaze</mat-icon>
+          Details
+        </ng-template>
+        <br/>
+        <mat-form-field appearance="outline" floatLabel="always" style="width: 7%;">
+          <mat-label class="ticket-label">Incident Number</mat-label>
+          <input matInput [(ngModel)]="ticket.incident" disabled>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label class="ticket-label">Dealer</mat-label>
-      <input matInput [(ngModel)]="ticket.dealerName" disabled>
-    </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always" style="width: 20%;">
+          <mat-label class="ticket-label">Dealer</mat-label>
+          <input matInput [(ngModel)]="ticket.dealerName" disabled>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" floatLabel="always" style="width: 15%;">
+          <mat-label class="ticket-label">Created By</mat-label>
+          <input matInput [(ngModel)]="ticket.userId" disabled>
+        </mat-form-field>
+        
 
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label class="ticket-label">Category</mat-label>
-      <input matInput [(ngModel)]="ticket.category" disabled>
-    </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always"  style="width: 15%;">
+          <mat-label class="ticket-label">Open Date</mat-label>
+          <input matInput [(ngModel)]="ticket.openDate" disabled>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label class="ticket-label">Created By</mat-label>
-      <input matInput [(ngModel)]="ticket.userId" disabled>
-    </mat-form-field>
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label class="ticket-label">Open Date</mat-label>
-      <input matInput [(ngModel)]="ticket.openDate" disabled>
-    </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always" style="width: 15%;">
+          <mat-label class="ticket-label">Last Modification Date</mat-label>
+          <input matInput [(ngModel)]="ticket.lastModificationDate" disabled>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label class="ticket-label">Last Modification Date</mat-label>
-      <input matInput [(ngModel)]="ticket.lastModificationDate" disabled>
-    </mat-form-field>
+        
 
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label class="ticket-label">Summary</mat-label>
-      <textarea matInput rows="3" cols="2000" [(ngModel)]="ticket.summary" style="width:500px;" disabled> </textarea>
-    </mat-form-field>
-    <br />
-    <mat-form-field appearance="outline" style="width: 100%;">
-      <mat-label class="ticket-label">Description</mat-label>
-      <textarea matInput rows="5" cols="2000" [(ngModel)]="ticket.description" disabled> </textarea>
-    </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always" style="width: 20%;">
+          <mat-label class="ticket-label">Status</mat-label>
+          <input matInput [(ngModel)]="ticket.status" disabled>
+        </mat-form-field>
+        <br/>
 
+        <mat-form-field appearance="outline" floatLabel="always" style="width: 20%;">
+          <mat-label class="ticket-label">Category</mat-label>
+          <input matInput [(ngModel)]="ticket.category" disabled>
+        </mat-form-field>
 
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Incident Log
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div>
-          
-          <span style="float:right; padding-bottom: 5px;">
-            <button mat-mini-fab style="background-color:#00893d" (click)="addComment()" aria-label="Add Comment">
-              <mat-icon>add_circle_outline</mat-icon> 
-            </button>
-          </span>
-          <table mat-table [dataSource]="logdataSource" class="mat-elevation-z8">
-            <mat-header-row *matHeaderRowDef="displayedLogColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedLogColumns;"></mat-row>
+        <br/>
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label class="ticket-label">Summary</mat-label>
+          <input matInput  [(ngModel)]="ticket.summary" style="width:750px;" disabled> 
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline" style="width: 90%;">
+          <mat-label class="ticket-label">Description</mat-label>
+          <textarea matInput rows="12"  [(ngModel)]="ticket.description" disabled> </textarea>
+        </mat-form-field>
 
-            <ng-container matColumnDef="description">
-              <th mat-header-cell *matHeaderCellDef> Description</th>
-              <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-            </ng-container>
-            <ng-container matColumnDef="createdBy">
-              <th mat-header-cell *matHeaderCellDef> Created By </th>
-              <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
-            </ng-container>
-            <ng-container matColumnDef="createdOn">
-              <th mat-header-cell *matHeaderCellDef> Created On </th>
-              <td mat-cell *matCellDef="let element"> {{element.createdOn}} </td>
-            </ng-container>
+      </mat-tab>
+      <mat-tab  style="color:#016fbf">
+        <ng-template mat-tab-label style="color:#016fbf" >
+          <mat-icon>history</mat-icon>
+          Activity Logs
+        </ng-template>
+        <table mat-table [dataSource]="logdataSource" class="mat-elevation-z8">
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="9999">
+              No logs found
+            </td>
+          </tr>
+          <mat-header-row *matHeaderRowDef="displayedLogColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedLogColumns;"></mat-row>
 
-          </table>
-        </div>
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description</th>
+            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+          </ng-container>
+          <ng-container matColumnDef="createdBy">
+            <th mat-header-cell *matHeaderCellDef> Created By </th>
+            <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+          </ng-container>
+          <ng-container matColumnDef="createdOn">
+            <th mat-header-cell *matHeaderCellDef> Created On </th>
+            <td mat-cell *matCellDef="let element"> {{element.createdOn}} </td>
+          </ng-container>
 
-      </mat-expansion-panel>
-      <br/>
-      <mat-divider></mat-divider>
-      <br/>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Incident Attachments
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-       
-        <div>
-          <span style="float:right; padding-bottom: 5px;">
-            <button mat-mini-fab style="background-color:#00893d" (click)="addAttachment()" aria-label="Add Attachment">
-              <mat-icon>add_circle_outline</mat-icon> 
-            </button>
-          </span>
-          <table mat-table [dataSource]="attachmentDataSource" class="mat-elevation-z8">
+        </table>
+      </mat-tab>
+      <mat-tab style="color:#016fbf" >
+        <ng-template mat-tab-label style="color:#016fbf" >
+          <mat-icon>attach_file</mat-icon>
+          Attachments 
+        </ng-template>
+       <mat-card >
+          <table mat-table [dataSource]="attachmentDataSource" style="width:90%;">
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="100">
+                No attachments found
+              </td>
+            </tr>
             <mat-header-row *matHeaderRowDef="displayedAttachmentColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedAttachmentColumns;"></mat-row>
             <ng-container matColumnDef="docName">
               <th mat-header-cell *matHeaderCellDef> Document Name</th>
               <td mat-cell *matCellDef="let element"> {{element.docName}} </td>
             </ng-container>
-            <ng-container matColumnDef="description" >
+            <ng-container matColumnDef="description">
               <th mat-header-cell *matHeaderCellDef> Description </th>
               <td mat-cell *matCellDef="let element"> {{element.description}} </td>
             </ng-container>
@@ -122,16 +125,12 @@
               <th mat-header-cell *matHeaderCellDef> Attached On </th>
               <td mat-cell *matCellDef="let element"> {{element.attachedTimeStamp}} </td>
             </ng-container>
-            <ng-container matColumnDef="document">
-              <th mat-header-cell *matHeaderCellDef> Document </th>
-              <td mat-cell *matCellDef="let element"> {{element.document}} </td>
-            </ng-container>
           </table>
-        </div>
-      </mat-expansion-panel>
-
-    
+        </mat-card>
+      </mat-tab>
+    </mat-tab-group>
+    <button mat-raised-button style="color:#ffffff; background-color:darkgreen; margin:5px;" [routerLink]="['/tickets']">
+      Back
+    </button>
   </mat-card-content>
-
-
 </mat-card>
