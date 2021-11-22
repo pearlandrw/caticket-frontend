@@ -46,6 +46,17 @@ export class LoginComponent implements OnInit {
       () => {
         // this.isAuthenticated =  true;
         console.log(" next action here ... ");
+        if (this.model.username === 'johndlr') {
+          localStorage.setItem("userName", "Reynolds, Dave");
+          localStorage.setItem("userId","F294EFFF3E516F43AD5372F5353A9C5A")
+          localStorage.setItem("dealerName", "Southfield Avis Ford (HR7AX)");
+          localStorage.setItem("dealerId", "HR7AX");
+        } else {
+          localStorage.setItem("userName", "Boyer, John");
+          localStorage.setItem("dealerName", "Tamaroff Honda (VP1VZ)");
+          localStorage.setItem("dealerId", "VP1VZ");
+          localStorage.setItem("userId","028163410C432D419F71C5D8650277CF");
+        }
       },
       error => {
         console.log(error);

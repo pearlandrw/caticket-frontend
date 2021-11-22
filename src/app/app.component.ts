@@ -79,19 +79,9 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       this.user = this.authService.getUser()
       // this.user = JSON.parse(localStorage.getItem(APP_USER_PROFILE)) || <User>{};
     }
-    if (this.user.email === 'johndlr') {
-      localStorage.setItem("userName", "Reynolds, Dave");
-      localStorage.setItem("userId","F294EFFF3E516F43AD5372F5353A9C5A")
-      localStorage.setItem("dealerName", "Southfield Avis Ford (QL8RT)");
-      localStorage.setItem("dealerId", "QL8RT");
-    } else {
-      localStorage.setItem("userName", "Boyer, John");
-      localStorage.setItem("dealerName", "Tamaroff Honda (YB9MC)");
-      localStorage.setItem("dealerId", "YB9MC");
-      localStorage.setItem("userId","028163410C432D419F71C5D8650277CF");
-    }
     this.userName =localStorage.getItem("userName");
     this.dealerName =localStorage.getItem("dealerName");
+    
   }
 
   private navigationInterceptor(event: Event): void {
